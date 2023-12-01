@@ -33,7 +33,6 @@ namespace InterfacesTP
         {
             this.btnCrear = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            this.btnRol = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dbUsuario = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,18 +62,6 @@ namespace InterfacesTP
             this.btnEditar.Text = "Editar Usuario";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
-            // btnRol
-            // 
-            this.btnRol.Enabled = false;
-            this.btnRol.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRol.Location = new System.Drawing.Point(12, 298);
-            this.btnRol.Name = "btnRol";
-            this.btnRol.Size = new System.Drawing.Size(164, 40);
-            this.btnRol.TabIndex = 4;
-            this.btnRol.Text = "Asignar Rol";
-            this.btnRol.UseVisualStyleBackColor = true;
-            this.btnRol.Click += new System.EventHandler(this.btnRol_Click);
             // 
             // button1
             // 
@@ -127,7 +114,6 @@ namespace InterfacesTP
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dbUsuario);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnRol);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnCrear);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -147,7 +133,6 @@ namespace InterfacesTP
         private Label label1;
         private Button btnCrear;
         private Button btnEditar;
-        private Button btnRol;
         private Button button1;
         private DataGridView dbUsuario;
         private Panel panel1;
