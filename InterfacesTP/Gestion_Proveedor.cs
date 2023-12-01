@@ -240,82 +240,127 @@ namespace InterfacesTP
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCrear_Click(object sender, EventArgs e)
+        {
+            if (dbProveedor.SelectedRows.Count > 0)
             {
-                if (dbProveedor.SelectedRows.Count > 0)
-                {
-                    // Obtener la fila seleccionada en el DataGridView
-                    DataGridViewRow selectedRow = dbProveedor.SelectedRows[0];
+                // Obtener la fila seleccionada en el DataGridView
+                DataGridViewRow selectedRow = dbProveedor.SelectedRows[0];
 
-                    // Obtener la entidad del proveedor seleccionado de la fila
-                    BLL.BLL.Clases.Proveedor_BLL prove = new BLL.BLL.Clases.Proveedor_BLL();
-                    BLL.BLL.Entidades.Proveedor_Ent proveedorSeleccionada = (BLL.BLL.Entidades.Proveedor_Ent)selectedRow.DataBoundItem;
+                // Obtener la entidad del proveedor seleccionado de la fila
+                BLL.BLL.Clases.Proveedor_BLL prove = new BLL.BLL.Clases.Proveedor_BLL();
+                BLL.BLL.Entidades.Proveedor_Ent proveedorSeleccionada = (BLL.BLL.Entidades.Proveedor_Ent)selectedRow.DataBoundItem;
 
-                    // Configurar la entidad del proveedor con los nuevos valores
-                    BLL.BLL.Entidades.Proveedor_Ent prov = new BLL.BLL.Entidades.Proveedor_Ent();
-                    prov.ID_Proveedor = proveedorSeleccionada.ID_Proveedor;
+                // Configurar la entidad del proveedor con los nuevos valores
+                BLL.BLL.Entidades.Proveedor_Ent prov = new BLL.BLL.Entidades.Proveedor_Ent();
+                prov.ID_Proveedor = proveedorSeleccionada.ID_Proveedor;
 
-                    // Validar y asignar el nombre
-                    if (!string.IsNullOrWhiteSpace(txtb_Nombre.Text))
-                        prov.Nombre = txtb_Nombre.Text;
-                    else
-                    {
-                        MessageBox.Show("Por favor, ingrese un nombre válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    // Validar y asignar el CUIT
-                    int cuit;
-                    if (int.TryParse(txtb_CUIT.Text, out cuit))
-                        prov.CUIT = cuit;
-                    else
-                    {
-                        MessageBox.Show("Por favor, ingrese un CUIT válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    // Validar y asignar la calle
-                    if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
-                        prov.Calle = txtb_Calle.Text;
-                    else
-                    {
-                        MessageBox.Show("Por favor, ingrese una calle válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    // Validar y asignar la Altura
-                    if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
-                        prov.Altura = txtb_Altura.Text;
-                    else
-                    {
-                        MessageBox.Show("Por favor, ingrese una altura válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    // Validar y asignar la Codigo postal
-                    if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
-                        prov.Codigo_Postal = txtb_codPostal.Text;
-                    else
-                    {
-                        MessageBox.Show("Por favor, ingrese un codigo postal válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    prov.Localidad = (BLL.BLL.Entidades.Localidad_Ent)cb_Localidad.SelectedItem;
-                    prov.Estado = checkBox1.Checked ? 1 : 0;
-
-                    prove.Guardar(prov);
-                }
+                // Validar y asignar el nombre
+                if (!string.IsNullOrWhiteSpace(txtb_Nombre.Text))
+                    prov.Nombre = txtb_Nombre.Text;
                 else
                 {
-                    // Obtener una nueva entidad de proveedor si no hay ninguna fila seleccionada
-                    BLL.BLL.Clases.Proveedor_BLL prove = new BLL.BLL.Clases.Proveedor_BLL();
-                    BLL.BLL.Entidades.Proveedor_Ent prov = new BLL.BLL.Entidades.Proveedor_Ent();
-                    prov.ID_Proveedor = 0;
-
-                    // Repetir el proceso de validación y asignación para los campos ...
-
-                    // Guardar la nueva entidad de proveedor
-                    prove.Guardar(prov);
+                    MessageBox.Show("Por favor, ingrese un nombre válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-            
+
+                // Validar y asignar el CUIT
+                int cuit;
+                if (int.TryParse(txtb_CUIT.Text, out cuit))
+                    prov.CUIT = cuit;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un CUIT válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Validar y asignar la calle
+                if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
+                    prov.Calle = txtb_Calle.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese una calle válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Validar y asignar la Altura
+                if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
+                    prov.Altura = txtb_Altura.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese una altura válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // Validar y asignar la Codigo postal
+                if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
+                    prov.Codigo_Postal = txtb_codPostal.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un codigo postal válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                prov.Localidad = (BLL.BLL.Entidades.Localidad_Ent)cb_Localidad.SelectedItem;
+                prov.Estado = checkBox1.Checked ? 1 : 0;
+
+                prove.Guardar(prov);
+            }
+            else
+            {
+                // Obtener una nueva entidad de proveedor si no hay ninguna fila seleccionada
+                BLL.BLL.Clases.Proveedor_BLL prove = new BLL.BLL.Clases.Proveedor_BLL();
+                BLL.BLL.Entidades.Proveedor_Ent prov = new BLL.BLL.Entidades.Proveedor_Ent();
+                prov.ID_Proveedor = 0;
+                // Validar y asignar el nombre
+                if (!string.IsNullOrWhiteSpace(txtb_Nombre.Text))
+                    prov.Nombre = txtb_Nombre.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un nombre válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Validar y asignar el CUIT
+                int cuit;
+                if (int.TryParse(txtb_CUIT.Text, out cuit))
+                    prov.CUIT = cuit;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un CUIT válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Validar y asignar la calle
+                if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
+                    prov.Calle = txtb_Calle.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese una calle válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Validar y asignar la Altura
+                if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
+                    prov.Altura = txtb_Altura.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese una altura válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // Validar y asignar la Codigo postal
+                if (!string.IsNullOrWhiteSpace(txtb_Calle.Text))
+                    prov.Codigo_Postal = txtb_codPostal.Text;
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un codigo postal válida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                prov.Localidad = (BLL.BLL.Entidades.Localidad_Ent)cb_Localidad.SelectedItem;
+                prov.Estado = checkBox1.Checked ? 1 : 0;
+
+
+                // Guardar la nueva entidad de proveedor
+                prove.Guardar(prov);
+            }
+
 
             // Limpiar la selección y restablecer los manejadores de eventos para los ComboBox
             limpiarSeleccion();
