@@ -36,7 +36,7 @@ namespace InterfacesTP
             // Inicializa los datos y la interfaz de usuario
 
 
-            InitializeData();   
+            InitializeData();
             InitializeUI();
             usr = usuario;
             switch (usr.Rol.id_rol)
@@ -48,13 +48,13 @@ namespace InterfacesTP
 
                 // Caso 2:  Si numero es igual a 2 significa que inicio sistema un OPERADOR
                 case 2:
-                   
+
                     break;
 
                 // Caso 3:  Si numero es igual a 2 significa que inicio sistema un OBSERVADOR
                 case 3:
                     cb_Sucursal.Hide();
-                        lbl_Sucursal.Hide();
+                    lbl_Sucursal.Hide();
                     label2.Hide();
                     cb_Proveedor.Hide();
                     btn_Agregar_Producto.Hide();
@@ -113,10 +113,10 @@ namespace InterfacesTP
         // Inicializa el control DataGridView
         private void InitializeDataGridView()
         {
-            
+
             // Actualiza los datos en el DataGridView
             actualizarDatos();
-           
+
             // Oculta la columna "Estado" en el DataGridView
             dbPedido.Columns["Estado"].Visible = false;
             dbPedido.Refresh();
@@ -149,8 +149,8 @@ namespace InterfacesTP
             if (inicio != 0)
             {
 
-            // Obtiene la lista completa de pedidos y de productos asociados
-            listaPedido = pedid.Traer();
+                // Obtiene la lista completa de pedidos y de productos asociados
+                listaPedido = pedid.Traer();
                 listapedprod = pedprod.Traer();
             }
             else
@@ -166,7 +166,7 @@ namespace InterfacesTP
             dbPedido.DataSource = listapedidopasar;
 
             // Actualiza y limpia el DataGridView de productos asociados
-            
+
         }
 
         // Maneja el evento de cambio de selección en el DataGridView de pedidos
@@ -183,9 +183,10 @@ namespace InterfacesTP
 
                 // Llena los campos relacionados con el pedido seleccionado
                 FillPedidoFields(pedidoSeleccionada);
-                if(usr.Rol.id_rol>2)
+                if (usr.Rol.id_rol > 2)
                 {
                     btn_Agregar_Producto.Hide();
+                    btn_Quitar_Producto.Hide();
                 }
             }
             else
@@ -228,8 +229,13 @@ namespace InterfacesTP
         // Maneja el evento de cambio de selección en el DataGridView de productos
         private void dbProducto_SelectionChanged(object sender, EventArgs e)
         {
+
             // Muestra u oculta el botón "Quitar Producto" dependiendo de si hay filas seleccionadas en el DataGridView de productos
             btn_Quitar_Producto.ShowOrHide(dbProducto.SelectedRows.Count > 0);
+            if (usr.Rol.id_rol > 2)
+            {
+                btn_Quitar_Producto.Hide();
+            }
         }
 
         // Maneja el evento de formato de celda en el DataGridView de pedidos
@@ -293,7 +299,7 @@ namespace InterfacesTP
 
             // Actualiza los datos en la interfaz de usuario y limpia la selección
             actualizarDatos();
-            
+
         }
 
         // Actualiza un pedido existente en la base de datos
@@ -331,9 +337,9 @@ namespace InterfacesTP
             dbPedido.ClearSelection();
             dbProducto.ClearSelection();
 
-            
 
-           
+
+
 
             // Limpia nuevamente las selecciones y actualiza la interfaz de usuario
             dbProducto.ClearSelection();
@@ -371,14 +377,14 @@ namespace InterfacesTP
         {
             // Limpia la selección y actualiza los datos en la interfaz de usuario
             limpiarSeleccion();
-            
+
         }
 
         // Actualiza el DataGridView de productos con la lista actualizada de productos
         private void ActualizarDataGridViewProductos()
         {
             // Obtiene la lista actualizada de productos y la asigna al origen de datos del DataGridView de productos
-            
+
 
             // Refresca y limpia el DataGridView de productos
             dbPedido.Refresh();
@@ -386,11 +392,6 @@ namespace InterfacesTP
             dbProducto.ClearSelection();
         }
 
-        // Obtiene la lista de productos con estado 1
-        private List<PedidoProducto_Ent> TraerProductos()
-        {
-            return pedprod.Traer().Where(x => x.Estado == 1).ToList();
-        }
 
         // Maneja el clic en un botón no identificado (button3 en el formulario)
         private void button3_Click(object sender, EventArgs e)
@@ -426,18 +427,18 @@ namespace InterfacesTP
             this.Close();
         }
 
-   
+
     }
     // Clase de extensión para mostrar u ocultar un botón según una condición
     public static class ButtonExtensions
+    {
+        public static void ShowOrHide(this Button button, bool condition)
         {
-            public static void ShowOrHide(this Button button, bool condition)
-            {
-                if (condition)
-                    button.Show();
-                else
-                    button.Hide();
-            }
+            if (condition)
+                button.Show();
+            else
+                button.Hide();
         }
-    
+    }
+
 }
