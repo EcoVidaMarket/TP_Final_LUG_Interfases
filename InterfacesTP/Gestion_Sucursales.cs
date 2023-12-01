@@ -49,7 +49,7 @@ namespace InterfacesTP
             listaLocalidad = loca.Traer();
 
             // Inserta un elemento inicial en la lista de Provincias.
-           
+
 
             // Inicializa las listas de Partidos y Localidades para los ComboBoxes.
             listaPartidoCB = new List<Partido_Ent>();
@@ -99,7 +99,7 @@ namespace InterfacesTP
         /// <param name="e">Los datos del evento.</param>
         private void cbProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
 
             // Obtiene la Provincia seleccionada del ComboBox de Provincia.
             BLL.BLL.Entidades.Provincia_Ent provinciaSeleccionada = (BLL.BLL.Entidades.Provincia_Ent)cb_Provincia.SelectedItem;
@@ -139,9 +139,9 @@ namespace InterfacesTP
 
             // Obtiene el Partido seleccionado del ComboBox de Partido.
             BLL.BLL.Entidades.Partido_Ent partidoSeleccionada = (BLL.BLL.Entidades.Partido_Ent)cb_Partido.SelectedItem;
-            
+
             var listaOrden = listaLocalidad.Where(x => x.Partido == partidoSeleccionada.id_Partido).ToList();
-            
+
             // Ordena la lista de Localidades por nombre.
             listaLocalidadCB = listaOrden.OrderBy(localidad => localidad.Nombre_Localidad).ToList();
 
@@ -184,11 +184,11 @@ namespace InterfacesTP
                 this.txtb_Calle.Text = sucursalSeleccionada.Calle;
                 this.txtb_codPostal.Text = sucursalSeleccionada.Codigo_Postal;
 
-               
+
                 var localidadLocalidad = listaLocalidad.Where(x => x.Partido == sucursalSeleccionada.Localidad.Partido).ToList();
                 var partidosLoc = listaPartido.Where(x => x.id_Partido == sucursalSeleccionada.Localidad.Partido).ToList();
                 var partidosLocalidad = listaPartido.Where(x => x.Provincia == partidosLoc.First().Provincia).ToList();
-                        
+
 
                 cb_Provincia.DataSource = listaProvincia;
                 cb_Provincia.ValueMember = "id_provincia";
@@ -199,7 +199,7 @@ namespace InterfacesTP
                 cb_Localidad.DataSource = localidadLocalidad;
                 cb_Localidad.DisplayMember = "Nombre_Localidad";
                 cb_Localidad.ValueMember = "id_Localidad";
-                cb_Localidad.SelectedValue = sucursalSeleccionada.Localidad.id_Localidad; 
+                cb_Localidad.SelectedValue = sucursalSeleccionada.Localidad.id_Localidad;
 
                 // Verifica el estado de la sucursal y marca la casilla de verificación si está habilitada.
                 if (sucursalSeleccionada.Estado == 1)
